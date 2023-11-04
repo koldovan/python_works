@@ -1,28 +1,42 @@
 from art import *
 
+def add(num1, num2):
+    return num1 + num2
+
+def subtract(num1, num2):
+    return num1 - num2
+
+def multiply(num1, num2):
+    return num1 * num2
+
+def divide(num1, num2):
+    return num1 / num2
+
+operations = {
+    "+" : add,
+    "-" : subtract,
+    "*" : multiply,
+    "/" : divide,
+}
+
 print(logo)
-first_number = float(input("What's the first number? "))
-check = True
-
-def calculate(first_number, next_number):
-    if operation == "+":
-        return first_number + next_number
-    elif operation == "-":
-        return first_number - next_number
-    elif operation == "*":
-        return first_number * next_number
-    elif operation == "/":
-        return first_number / next_number
-    else:
-        return f"There is no {operation} operation."
-
-while check:
-    operation = input('+\n-\n*\n/\nPick an operation: ')
-    next_number = float(input("What's the next number? "))
-    result = calculate(first_number, next_number)
-    proceed = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ")
-    if proceed == 'y':
-        first_number = result
-    elif proceed == 'n':
-        check = False
-        
+def calculator():
+    check = True
+    num1 = float(input("What's the first number? "))
+    while check:
+        for key in operations:
+            print(key)
+        operation_type = input("Choose the operation: ")
+        num2 = float(input("What's the second number? "))
+        calculation_function = operations[operation_type]
+        answer = calculation_function(num1, num2)
+        proceed = input(f"Type 'y' to continue calculating with {answer}, 'n' to start a new calculation or anything else to exit.")
+        if proceed == "y":
+            num1 = answer
+        elif proceed == 'n':
+            check = False
+            calculator()
+        else:
+            check = False
+            print(f"There is no {proceed} option.")
+calculator()
